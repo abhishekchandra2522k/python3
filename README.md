@@ -1,2 +1,2 @@
 # PyPrograms
-Contains various programs written in py3.
+This repository contains various programs written in python3 programming language.
