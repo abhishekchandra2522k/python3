@@ -52,7 +52,7 @@ class Person:
         self.mp -= cost
     
     def generate_spell_name(self,i):
-        return self.magic[i]['Name']
+        return self.magic[i]['name']
 
     def get_spell_mp_cost(self, i):
         return self.magic[i]['cost']
@@ -68,5 +68,5 @@ class Person:
         i = 0
         print('Magic')
         for spell in self.magic:
-            print(str(i+1), ":", self.magic[i]["Name"], "(cost:", str(spell['cost']) + ")")
+            print(str(i+1), ":", self.magic[i]["name"], "(cost:", str(spell['cost']) + ")")
             i += 1
