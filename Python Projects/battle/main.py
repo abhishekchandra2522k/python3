@@ -1,5 +1,7 @@
+# importing game.py, magic.py, inventory.py
 from classes.game import Person, bcolors
 from classes.magic import Spell
+from classes.inventory import Item
 
 # Create Black Magic
 fire = Spell("Fire", 10, 100, 'black')
@@ -14,8 +16,13 @@ cura = Spell("Cura", 14, 180, "white")
 curea = Spell("Curea", 18, 200, "white")
 curate = Spell("Curate", 20, 220, "white")
 
-#Instantiation
-player = Person(460, 65, 60, 34, ['fire', 'thunder', 'blizzard', 'meteor', 'cure','curate'])
+# Create Items
+
+#Instantiation of player and enemy
+
+player = Person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, curate])
+
+# Person class -> (hit_point, magic_point, attack_high, attack_low, magic_choice)
 
 enemy = Person(1200, 65, 45, 25, [])
 
@@ -23,21 +30,26 @@ running = True
 
 i = 0
 
+# Start Game
 print(bcolors.FAIL + bcolors.BOLD + "AN ENEMY ATTACKS!" + bcolors.ENDC)
 
+# Options for User
 while running:
     print('=========================')
-    player.choose_action()
+    player.choose_action()      # Player can choose action 1. Attack 2. Magic
 
-    choice = input("Enter Action : ")
+    choice = input("Enter Action : ") 
     index = int(choice) -1
 
 
-    if index == 0:
-        dmg = player.generate_damage()
+    if index == 0:  # attack chosen, player attacked for a random value between atkl, atkh
+        dmg = player.generate_damage() 
+        
         enemy.take_damage(dmg)
+        
         print("You attacked for", dmg, "Points of damage.")
-    elif index == 1:
+    
+    elif index == 1: # magic choosen, choose magic from options 
         player.choose_magic()
         magic_choice = int(input("Choose magic: ")) - 1
 
@@ -52,8 +64,12 @@ while running:
             
         player.reduce_mp(spell.cost)
 
-        enemy.take_damage(magic_dmg)
-        print(bcolors.OKBLUE + "\n" + spell.name + ' deals ' + str(magic_dmg) + " points of damage" + bcolors.ENDC)
+        if spell.type == "white":
+            player.heal(magic_dmg)
+            print(bcolors.OKBLUE + "\n" + spell.name + " heals for " + str(magic_dmg) + "HP."+ bcolors.ENDC)
+        elif spell.type == "black":
+            enemy.take_damage(magic_dmg)
+            print(bcolors.OKBLUE + "\n" + spell.name + ' deals ' + str(magic_dmg) + " points of damage" + bcolors.ENDC)
 
     
     enemy_choice = 1
@@ -64,7 +80,8 @@ while running:
 
     print("Enemy attacks for", enemy_dmg)
 
-    print('\n--------------------------------------------------\n')
+    print('--------------------------------------------------')
+
     print("Enemy HP : ", bcolors.FAIL, str(enemy.get_hp()) + "/" + str(enemy.get_maxhp()) + bcolors.ENDC + '\n')
     print("Player HP : ", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_maxhp()) + bcolors.ENDC + "\n")
     print("Your MP : ", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_maxmp()) + bcolors.ENDC + "\n")
