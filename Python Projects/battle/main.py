@@ -16,7 +16,13 @@ cura = Spell("Cura", 14, 180, "white")
 curea = Spell("Curea", 18, 200, "white")
 curate = Spell("Curate", 20, 220, "white")
 
-# Create Items
+# Create Some Items
+# (name, type, description, prop)
+potion = Item("Potion", "potion", "Heals 50 HP", 50)
+hipotion = Item("Hi-potion", "potion", "Heals 100 HP", 100)
+superpotion = Item("Super-potion", "potion","Heals 500 HP", 500)
+elixer = Item("Elixer", "elixer", "Fully restores HP/MP of one player", 9999)
+hielixer = Item("MegaElixer", "elixer", "Fully restores HP/MP of all members", 9999)
 
 #Instantiation of player and enemy
 
