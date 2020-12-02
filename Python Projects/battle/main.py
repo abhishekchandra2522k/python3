@@ -27,10 +27,16 @@ hielixer = Item("MegaElixer", "elixer", "Fully restores HP/MP of all members", 9
 grenade = Item("Grenade", "attack", "Deals 500 damage", 500)
 
 
-#Instantiation of player and enemy
-
 player_magic = [fire, thunder, blizzard, meteor, cure, curate]
-player_items = [potion, hipotion, superpotion, elixer, hielixer, grenade]
+
+player_items = [{'item' : potion,'quantity' : 15}, 
+                {'item' : hipotion, 'quantity' : 5}, 
+                {'item' : superpotion, 'quantity' : 5}, 
+                {'item' : elixer, 'quantity' : 5},
+                {'item' : hielixer, 'quantity' : 2}, 
+                {'item' : grenade, 'quantity' : 5}]
+
+#Instantiation of player and enemy
 
 player = Person(460, 65, 60, 34, player_magic, player_items)
 
@@ -95,11 +101,25 @@ while running:
         if item_choice == -1:
             continue
         
-        item = player.items[item_choice]
+        item = player.items[item_choice]["item"]
+        player.items[item_choice]['quantity'] -= 1
+
+        if player.items[item_choice]['quantity'] < 0:
+            print(bcolors.FAIL +  "\n" +  "None left..." + bcolors.ENDC)
+            continue
 
         if item.type == 'potion':
             player.heal(item.prop)
             print(bcolors.OKGREEN + "\n" + item.name + " heals for " + str(item.prop) + " HP." + bcolors.ENDC)
+        
+        elif item.type == 'elixer':
+            player.hp = player.maxhp
+            player.mp = player.maxmp
+            print(bcolors.OKGREEN + "\n" + item.name + " fully restores player's HP/MP" + bcolors.ENDC)
+
+        elif item.type == 'attack':
+            enemy.take_damage(item.prop)
+            print(bcolors.FAIL + "\n" + item.name + " deals " + str(item.prop) + " damage." + bcolors.ENDC)
 
     enemy_choice = 1
 
