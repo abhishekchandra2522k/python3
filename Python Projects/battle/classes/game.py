@@ -12,7 +12,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 class Person:
-    def __init__(self, hp, mp, atk, df, magic, items):
+    def __init__(self,name, hp, mp, atk, df, magic, items):
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -23,6 +23,7 @@ class Person:
         self.magic = magic
         self.items = items
         self.actions = ['Attack', 'Magic', 'Items']
+        self.name = name
     
     def generate_damage(self):
         return random.randrange(self.atkl, self.atkh)
@@ -75,3 +76,10 @@ class Person:
         for item in self.items:
             print("     " + str(i) + ". " + item["item"].name + " : " + item["item"].description + "(x" + str(item["quantity"]) + ")")
             i += 1
+
+    def get_stats(self):
+        print("NAME                  HP                                MP")
+        print("                      _________________________         __________")
+        print(bcolors.BOLD + self.name + "       "    
+        "275/460 |" + bcolors.OKGREEN +  "███████████████          " + bcolors.ENDC + bcolors.BOLD + "| " +
+        "65/65 |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + "|") # ASCII 219
