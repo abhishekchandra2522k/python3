@@ -3,6 +3,28 @@ from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
 
+# Creating better gameplay
+print("\n\n")
+print("NAME                  HP                                MP")
+print("                      _________________________         __________")
+print(bcolors.BOLD + "Valos:       "    
+    "275/460 |" + bcolors.OKGREEN +  "███████████████          " + bcolors.ENDC + bcolors.BOLD + "| " +
+    "65/65 |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + "|") # ASCII 219
+
+print("NAME                  HP                                MP")
+print("                      _________________________         __________")
+print(bcolors.BOLD + "Nick :       "    
+    "275/460 |" + bcolors.OKGREEN +  "███████████████          " + bcolors.ENDC + bcolors.BOLD + "| " +
+    "65/65 |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + "|") # ASCII 219
+
+print("NAME                  HP                                MP")
+print("                      _________________________         __________")
+print(bcolors.BOLD + "Robot:       "    
+    "275/460 |" + bcolors.OKGREEN +  "███████████████          " + bcolors.ENDC + bcolors.BOLD + "| " +
+    "65/65 |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + "|") # ASCII 219
+
+print("\n\n")
+
 # Create Black Magic
 fire = Spell("Fire", 10, 100, 'black')
 thunder = Spell("Thunder", 12, 124, 'black')
@@ -38,11 +60,13 @@ player_items = [{'item' : potion,'quantity' : 15},
 
 #Instantiation of player and enemy
 
-player = Person(460, 65, 60, 34, player_magic, player_items)
+player1 = Person("Valos:",460, 65, 60, 34, player_magic, player_items)
+player2 = Person("Nick :",460, 65, 60, 34, player_magic, player_items)
+player3 = Person("Robot:",460, 65, 60, 34, player_magic, player_items)
 
 # Person class -> (hit_point, magic_point, attack_high, attack_low, magic_choice)
 
-enemy = Person(1200, 65, 45, 25, [],[])
+enemy = Person("Enemy:",1200, 65, 45, 25, [],[])
 
 running = True
 
