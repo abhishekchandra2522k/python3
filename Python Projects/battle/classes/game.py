@@ -56,7 +56,8 @@ class Person:
     
     def choose_action(self):
         i = 1
-        print('Actions')
+        print("\n" + bcolors.BOLD + self.name + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD +'   Actions' + bcolors.ENDC)
         for item in self.actions:
             print("     " + str(i)  + ". " + item)
             i += 1
@@ -64,7 +65,7 @@ class Person:
     def choose_magic(self):
         i = 1
 
-        print("\n" + bcolors.OKBLUE + bcolors.BOLD + 'Magic' + bcolors.ENDC)
+        print("\n" + bcolors.OKBLUE + bcolors.BOLD + '   Magic' + bcolors.ENDC)
         for spell in self.magic:
             print("     " + str(i) + ". " + spell.name, "(cost:", str(spell.cost) + ")")
             i += 1
@@ -72,14 +73,13 @@ class Person:
     def choose_items(self):
         i = 1
         
-        print("\n" + bcolors.OKBLUE + bcolors.BOLD + "ITEMS : " + bcolors.ENDC)
+        print("\n" + bcolors.OKBLUE + bcolors.BOLD + "   Items : " + bcolors.ENDC)
         for item in self.items:
             print("     " + str(i) + ". " + item["item"].name + " : " + item["item"].description + "(x" + str(item["quantity"]) + ")")
             i += 1
 
     def get_stats(self):
-        print("NAME                  HP                                MP")
         print("                      _________________________         __________")
-        print(bcolors.BOLD + self.name + "       "    
-        "275/460 |" + bcolors.OKGREEN +  "███████████████          " + bcolors.ENDC + bcolors.BOLD + "| " +
-        "65/65 |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + "|") # ASCII 219
+        print(bcolors.BOLD + self.name + "     "    
+        + str(self.hp) + "/" + str(self.maxhp) + " |" + bcolors.OKGREEN +  "███████████████          " + bcolors.ENDC + bcolors.BOLD + "| " +
+        str(self.mp) +"/" + str(self.maxmp) + " |" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + "|") # ASCII 219
