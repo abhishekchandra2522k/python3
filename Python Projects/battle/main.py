@@ -1,32 +1,35 @@
+import random
+
 # importing game.py, magic.py, inventory.py
 from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
 
-# Create Black Magic
-fire = Spell("Fire", 10, 100, 'black')
-thunder = Spell("Thunder", 12, 124, 'black')
-blizzard = Spell("Blizzard", 10, 100, 'black')
-meteor = Spell("Meteor", 20, 200, 'black')
-quake = Spell("Quake", 14, 140, 'black')
+# Create Black Magic (DAMAGE)
+# class Spell=> (name, cost, dmg, type)
+fire = Spell("Fire", 20, 600, 'black')
+thunder = Spell("Thunder", 24, 720, 'black')
+blizzard = Spell("Blizzard", 20, 580, 'black')
+meteor = Spell("Meteor", 40, 1600, 'black')
+quake = Spell("Quake", 28, 840, 'black')
 
-# Create White Magic
-cure = Spell("Cure", 12, 120, "white")
-cura = Spell("Cura", 14, 180, "white")
-curea = Spell("Curea", 18, 200, "white")
-curate = Spell("Curate", 20, 220, "white")
+# Create White Magic (CURE)
+# class Spell => (name, cost, dmg, type)
+cure = Spell("Cure", 24, 720, "white")
+cura = Spell("Cura", 28, 840, "white")
+curea = Spell("Curea", 36, 1080, "white")
+curate = Spell("Curate", 40, 1200, "white")
 
-# Create Some Items
-# (name, type, description, prop)
-potion = Item("Potion", "potion", "Heals 50 HP", 50)
-hipotion = Item("Hi-potion", "potion", "Heals 100 HP", 100)
-superpotion = Item("Super-potion", "potion","Heals 500 HP", 500)
+# Create Some Items (DAMAGE + CURE both options available)
+# class Item => (name, type, description, prop)
+potion = Item("Potion", "potion", "Heals 150 HP", 150)
+hipotion = Item("Hi-potion", "potion", "Heals 300 HP", 300)
+superpotion = Item("Super-potion", "potion","Heals 1000 HP", 1000)
 elixer = Item("Elixer", "elixer", "Fully restores HP/MP of one player", 9999)
-hielixer = Item("MegaElixer", "elixer", "Fully restores HP/MP of all members", 9999)
-
+hielixer = Item("Mega-Elixer", "elixer", "Fully restores HP/MP of all members", 9999)
 grenade = Item("Grenade", "attack", "Deals 500 damage", 500)
 
-
+# player defining
 player_magic = [fire, thunder, blizzard, meteor, cure, curate]
 
 player_items = [{'item' : potion,'quantity' : 15}, 
@@ -36,16 +39,15 @@ player_items = [{'item' : potion,'quantity' : 15},
                 {'item' : hielixer, 'quantity' : 2}, 
                 {'item' : grenade, 'quantity' : 5}]
 
-#Instantiation of player and enemy
-
-player1 = Person("Valos:",3000, 65, 60, 34, player_magic, player_items)
-player2 = Person("Nick :",3560, 65, 60, 34, player_magic, player_items)
-player3 = Person("Robot:",4460, 65, 60, 34, player_magic, player_items)
+#Instantiation of players and enemy
+# class Person => (name, hit_point, magic_point, attack, defence, magic_choice, item_choice)
+player1 = Person("Valos",3000, 132, 160, 34, player_magic, player_items)
+player2 = Person("Nick ",3560, 188, 180, 34, player_magic, player_items)
+player3 = Person("Robot",4460, 174, 260, 34, player_magic, player_items)
 
 players = [player1, player2, player3]
-# Person class -> (hit_point, magic_point, attack_high, attack_low, magic_choice)
 
-enemy = Person("Enemy:",1200, 65, 45, 25, [],[])
+enemy = Person("Enemy",7200, 240, 432, 25, [],[])
 
 running = True
 
@@ -58,14 +60,20 @@ print(bcolors.FAIL + bcolors.BOLD + "\n\nAN ENEMY ATTACKS!" + bcolors.ENDC)
 while running:
     print('------------------------------------------------------------\n\n')
     print(bcolors.BOLD + "PLAYER NAME   HP                                  MP" + bcolors.ENDC)
+    
+    #print player stats
     for player in players:
         player.get_stats()
-    
+
+    #print enemy stats
+    enemy.get_enemy_stats()
+
     print("\n")
 
     for player in players:
        
-        player.choose_action()      # Player can choose action 1. Attack 2. Magic 3. Items
+       # Player can choose action 1. Attack 2. Magic 3. Items
+        player.choose_action()      
 
         choice = input("\tChoose Action : ") 
 
@@ -77,7 +85,7 @@ while running:
             
             enemy.take_damage(dmg)
             
-            print("You attacked for", dmg, "Points of damage.")
+            print(player.name,"attacked for", dmg, "Points of damage.")
         
         # MAGIC choosen, choose magic from options 
         elif index == 1:
@@ -125,8 +133,15 @@ while running:
                 print(bcolors.OKGREEN + "\n" + item.name + " heals for " + str(item.prop) + " HP." + bcolors.ENDC)
             
             elif item.type == 'elixer':
-                player.hp = player.maxhp
-                player.mp = player.maxmp
+
+                if item.name == "Mega-Elixer":
+                    for i in players:
+                        i.hp = i.maxhp
+                        i.mp = i.maxmp
+                else:
+                    player.hp = player.maxhp
+                    player.mp = player.maxmp
+                
                 print(bcolors.OKGREEN + "\n" + item.name + " fully restores player's HP/MP" + bcolors.ENDC)
 
             elif item.type == 'attack':
@@ -134,16 +149,12 @@ while running:
                 print(bcolors.FAIL + "\n" + item.name + " deals " + str(item.prop) + " damage." + bcolors.ENDC)
 
     enemy_choice = 1
-
+    target = random.randrange(0,3)
     enemy_dmg = enemy.generate_damage()
 
-    player1.take_damage(enemy_dmg)
+    players[target].take_damage(enemy_dmg)
 
-    print("Enemy attacks for", enemy_dmg)
-
-    print('---------------------------------------------------------')
-
-    print("Enemy HP : ", bcolors.FAIL, str(enemy.get_hp()) + "/" + str(enemy.get_maxhp()) + bcolors.ENDC + '\n')
+    print("\nEnemy attacks", players[target].name,"for",enemy_dmg)
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You WIN!" + bcolors.ENDC)
