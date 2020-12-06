@@ -78,6 +78,16 @@ class Person:
             print("     " + str(i) + ". " + item["item"].name + " : " + item["item"].description + "(x" + str(item["quantity"]) + ")")
             i += 1
 
+    def choose_target(self, enemies):
+        i = 1
+        print("\n" + bcolors.FAIL + bcolors.BOLD +  "    TARGET:" + bcolors.ENDC)
+        for enemy in enemies:
+            if enemy.get_hp() != 0: 
+                print("        " + str(i) + ".", enemy.name, )
+                i += 1
+        choice = int(input("\tChoose target:")) - 1
+        return choice
+
     def get_stats(self): # player stats
         
         hp_bar = ""
@@ -149,8 +159,8 @@ class Person:
         hp_string = str(self.hp) + "/" + str(self.maxhp)
         current_hp = ""
 
-        if len(hp_string) < 9:
-            decreased = 9 - len(hp_string)
+        if len(hp_string) < 11:
+            decreased = 11 - len(hp_string)
 
             while decreased > 0:
                 current_hp += " "
@@ -161,5 +171,18 @@ class Person:
 
 
         print("                      __________________________________________________")
-        print(bcolors.BOLD + self.name + ":     "    
+        print(bcolors.BOLD + self.name + ":   "    
         + current_hp + " |" + bcolors.ENDC + bcolors.FAIL + hp_bar + bcolors.ENDC + bcolors.BOLD + "|" +bcolors.ENDC) # ASCII 219
+
+    
+    def choose_enemy_spell(self):
+        magic_choice = random.randrange(0, len(self.magic))
+        spell = self.magic[magic_choice]
+        magic_dmg = spell.generate_damage()
+
+        pct = (self.hp / self.maxhp) * 100 # percentage of hotpoints
+
+        if self.mp < spell.cost or spell.type == "white" and pct > 50:
+            self.choose_enemy_spell
+        else:
+            return spell, magic_dmg
