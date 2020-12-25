@@ -8,4 +8,4 @@ headers = {"Content-type" : "application/json"}
 
 r = requests.post(url, json=payload, headers = headers)
 
-print(r.text)
+print(json.loads(r.text)["error"]['code'])
