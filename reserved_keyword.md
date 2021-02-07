@@ -1,39 +1,39 @@
-###### Reserved Keywords in Python
+#### Reserved Keywords in Python
 
-and
+`and` : A logical operator, used to perform AND function b/w two equations.
 
-continue
+`continue` : To continue to next iteration of a loop, by ignoring the lines below the continue statement.
 
-except
+`except` : Used with exceptions, it is used to define what to do when an exception occurs.
 
-global 
+`global` : Used to declare a global variable.
 
-lambda
+`lambda`
 
-pass
+`pass`
 
-while
+`while`
 
-if
+`if`
 
-as
+`as`
 
-def
+`def`
 
-False
+`False`
 
-True
+`True`
 
-finally
+`finally`
 
-raise
+`raise`
 
-import
+`import`
 
-return
+`return`
 
-yield
+`yield`
 
-none
+`none`
 
-del
+`del`
