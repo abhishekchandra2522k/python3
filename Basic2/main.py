@@ -24,7 +24,13 @@ def validate_and_execute():
 user_input = ''
 while user_input != "exit":
     user_input = input("Enter number of days as a list : \n")
-    print(type(user_input.split(",")))
-    print(user_input.split(","))
-    for num_of_days in user_input.split(","):
+    list_of_days = user_input.split(", ")
+
+    print(list_of_days)
+    print(set(list_of_days))
+
+    print(type(list_of_days))
+    print(type(set(list_of_days)))
+
+    for num_of_days in set(list_of_days):
         validate_and_execute()
