@@ -10,3 +10,7 @@ class User:
 
     def change_job_title(self, new_job_title):
         self.current_job_title = new_job_title
+
+    def get_user_info(self):
+        print(f"user {self.name} currently works as a {self.current_job_title}. "
+              f"You can contact them as at {self.email}")
