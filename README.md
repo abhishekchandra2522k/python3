@@ -2,7 +2,7 @@
 
 This repository contains various programs and projects written in python3 programming language.
 
-### You can find links to python projects and other pyhton repositories here.
+### You can find links to python projects and other python repositories here.
 
 1. [Battle Script](https://github.com/abhishekchandra2522k/battle-script)
 2. [Old Cars Price Prediction Model](https://github.com/abhishekchandra2522k/ML-MAJOR-JUNE-GC)
