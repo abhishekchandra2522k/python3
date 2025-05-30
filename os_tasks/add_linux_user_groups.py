@@ -38,3 +38,19 @@ for user in userlist:
     print()
 
     os.system("usermod -G science {}".format(user))
+
+print("Adding Directory")
+print("#####################################")
+print()
+
+if os.path.isdir("/opt/science_dir"):
+    print("Directory already exists, skipping it")
+else:
+    os.mkdir("/opt/science_dir")
+
+print("Assigning permissions and ownership to the directory")
+print("#####################################")
+print()
+
+os.system("chown :science /opt/science_dir")
+os.system("chmod 770 /opt/science_dir")
