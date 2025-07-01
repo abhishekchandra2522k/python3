@@ -31,7 +31,28 @@ To generate a SSH key
 
 ssh-keygen
 
-To attach the key to the VM
+To attach the public key to the VM
 ssh-copy-id devops@web01
 
 > enter the password
+
+### To run the fab python file functions in another VM (host)
+
+-- Fabric will use the private key to login in the host VM with <username>, where public key was stored.
+
+$ fab -H <hostname> -u <username> <function_name>
+
+-- We can get the <function_name> from fab -l
+
+$ fab -H web01 -u devops remote_exec
+
+### PYTHON FABRIC DEMO PROGRAM
+
+- Install httpd web package & dependencies
+- Start and Enable web service
+- Download website artifact from tooplate.com
+- Extract the artifact (zip file) content into /var/www/html
+- Restart the service
+- We can access the website VM's IP or EC2 Instance's IP address
+
+$ fab -H web01 -u devops web_setup:https://www.tooplate.com/zip-templates/2136_kool_form_pack.zip,2136_kool_form_pack
